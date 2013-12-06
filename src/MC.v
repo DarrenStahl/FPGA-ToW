@@ -1,63 +1,88 @@
-//*********************
-//Hasith Vidanamadura
-//100871538
-//Darren Stahl
-//100858939
-//*********************
-`timescale 1ms / 1ms
-module MC(clk, rst, winrnd, slowen, rand, leds_on, clear, led_control);
-	`define RESET     0
-	`define Wait_a    1
-   `define Wait_b    2
-	`define Dark_Rand 3 
-	`define Play      4
-	`define Gloat_a   5
-	`define Gloat_b   6
-	
-	`define All_off    0
-	`define All_on     1
-	`define Curr_score 2
-	`define Student_number 3
-	input clk, rst, winrnd, slowen, rand;
-	output reg leds_on, clear;
-	output reg [1:0] led_control;
-	
-	reg [2:0] state;
-	reg [2:0] nxtstate;
+`timescale 1ns / 1ns
+module MC(winrnd, slowen, rand, clk, rst, leds_on, clear, led_control);
+    `define RESET   0
+    `define WAITA   1
+    `define WAITB   2
+    `define DARK    3
+    `define PLAY    4
+    `define GLOAT_A 5
+    `define GLOAT_B 6
+    `define ERROR   7
+	 
+	 `define NONE    0
+	 `define ALLON   1
+	 `define SCORE   2
+	 `define RESETLED   3
+	 
 
-	// SYNCHRONOUS STATE ASSIGNMENT ---------------------------------------------
-	always @(posedge clk or posedge rst)
-   		if (rst) state <= `RESET;
-   		else state <= nxtstate;
-	
+    input winrnd, slowen, rand, clk, rst;
+    output leds_on, clear, led_control;
 
-	// Setting of nxtstate
-	always @(slowen or state or winrnd or rand) begin
-		nxtstate = state;
-		case(state)
-		`RESET: nxtstate = `Wait_a;
-		`Wait_a: if(slowen) nxtstate = `Wait_b;
-		`Wait_b: if (slowen) nxtstate = `Dark_Rand;
-		`Dark_Rand: if(winrnd) nxtstate = `Gloat_a; else if(rand) nxtstate = `Play;
-		`Play: if(winrnd) nxtstate = `Gloat_a;
-		`Gloat_a: if (slowen) nxtstate = `Gloat_b;
-		`Gloat_b: if (slowen) nxtstate = `Dark_Rand;
-		default: nxtstate = `RESET;
-		endcase
-    end
+    wire winrnd, slowen, rand, clk, rst;
+    reg leds_on, clear;
+	 reg [1:0] led_control;
 
+    reg [2:0] state;
 
-    // output logic
-	always @(state)	begin
-		leds_on = 0; clear = 0; led_control = `All_off;
-		case(state)
-		`RESET: clear = 1;
-		`Wait_a: begin leds_on = 1; clear = 1; led_control = `Student_number; end
-		`Wait_b: begin leds_on = 1; clear = 1; led_control = `Student_number; end
-		//`Dark_Rand: No need for anything here, all outputs default
-		`Play: begin leds_on = 1;  led_control = `All_on; end
-		`Gloat_a: begin leds_on = 1; clear = 1; led_control = `Curr_score; end
-		`Gloat_b: begin leds_on = 1; clear = 1; led_control = `Curr_score; end
-		endcase
-	end
+    always @ (posedge clk)
+        if (rst) begin
+            leds_on <= 0;
+            clear <= 1;
+            led_control <= `RESETLED;
+            state <= `RESET;
+        end else begin
+            case(state)
+            `RESET: begin
+                state <= `WAITA;
+                leds_on <= 0;
+                led_control <= `RESETLED;
+                clear <= 1;
+            end
+            `WAITA: begin
+                if(slowen) state <= `WAITB; else state <= `WAITA;
+                leds_on <= 1;
+                led_control <= `RESETLED;
+                clear <= 1;
+            end
+            `WAITB: begin 
+                if(slowen) state <= `DARK; else state <= `WAITB;
+                leds_on <= 1;
+                led_control <= `RESETLED;
+                clear <= 1;
+            end
+            `DARK: begin
+                if (winrnd) state <= `GLOAT_A;
+                    else if (slowen & rand) state <= `PLAY;
+                    else state <= `DARK;
+
+                leds_on <= 0;
+                led_control <= `NONE;
+                clear <= 0;
+            end
+            `PLAY: begin
+                if (winrnd) state <= `GLOAT_A; else state <= `PLAY;
+                leds_on <= 1;
+                led_control <= `ALLON;
+                clear <= 0;
+            end
+            `GLOAT_A: begin
+                if (slowen) state <= `GLOAT_B; else state <= `GLOAT_A;
+                leds_on <= 1;
+                led_control <= `SCORE;
+                clear <= 1;
+            end
+            `GLOAT_B: begin
+                if (slowen) state <= `DARK; else state <= `GLOAT_B;
+                leds_on <= 1;
+                led_control <= `SCORE;
+                clear <= 1;
+            end
+            `ERROR: begin
+                state <= `RESET;
+                leds_on <= 1;
+                led_control <= `RESET;
+                clear <= 1;
+            end
+            endcase
+        end
 endmodule

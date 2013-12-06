@@ -31,9 +31,8 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
     input tie;
 	input winrnd;		// one-cycle pulse that someone has pushed
 	input [7:0]switches_in;
-	output [6:0] score;	//  MSB 5 [WL L2 L1 0 R1 R2 WR] LSB 0
+	output reg [7:0] score;	//  MSB 5 [WL L2 L1 0 R1 R2 WR] LSB 0
 
-	reg [6:0] score;	
 	reg [3:0] state;	// One of WL, WR, L1, L2, L3, R1, R2, R3 or ERROR
 	reg [3:0] nxtstate;	// C/L
 	reg [7:0] switches;
@@ -70,8 +69,8 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
 				`ERROR: nxtstate = `ERROR;
     			default: begin
 					if (state < `WL && state > `WR)
-						nxtstate = state - (mr + dbl);
-					nxtstate = `ERROR;
+						nxtstate = state - (mr ? 1 + dbl : -1 - dbl);
+					else nxtstate = `ERROR;
 				end
     			endcase
     		else	            // the leds were off, player jumped the light
@@ -81,8 +80,8 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
 				`ERROR: nxtstate = `ERROR;
     			default: begin
 					if (state < `WL && state > `WR)
-						nxtstate = state + mr;
-					nxtstate = `ERROR;
+						nxtstate = state + mr ? 1 : -1;
+					else nxtstate = `ERROR;
 				end
     			endcase
         end
@@ -92,16 +91,16 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
     // output logic - what value of 'score' should show based on the internal state
 	always @(state)	
 		case(state)
-		`WL:		score = 7'b1110000;
-		`L3:		score = 7'b1000000;
-		`L2:		score = 7'b0100000;
-		`L1:		score = 7'b0010000;
-		`N:			score = 7'b0001000;
-		`R1:		score = 7'b0000100;
-		`R2:		score = 7'b0000010;
-		`R3:		score = 7'b0000001;
-		`WR:		score = 7'b0000111;
-		default: 	score = 7'b1010101;
+		`WL:		score = 8'b11100000;
+		`L3:		score = 8'b10000000;
+		`L2:		score = 8'b01000000;
+		`L1:		score = 8'b00100000;
+		`N:			score = 8'b00011000;
+		`R1:		score = 8'b00000100;
+		`R2:		score = 8'b00000010;
+		`R3:		score = 8'b00000001;
+		`WR:		score = 8'b00000111;
+		default: 	score = 8'b10100101;
 		endcase
 
 endmodule
