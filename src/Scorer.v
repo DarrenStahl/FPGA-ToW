@@ -55,9 +55,9 @@ module scorer(clk, rst, right, winrnd, leds_on, switches_in, score);
 	
 	always @(state or switches)
         if (state == `N)
-            switches[0:7] = switches_in[0:6];
+            switches[7:0] = switches_in[7:0];
         else
-            switches[0:7] = switches[0:7];
+            switches[7:0] = switches[7:0];
 	
 	always @(state or mr or leds_on or winrnd) begin
 		nxtstate = state;

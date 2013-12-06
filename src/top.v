@@ -4,7 +4,7 @@
 //Darren Stahl
 //100858939
 //*********************
-module Top(clk, rst, pbl, pbr, leds_out);
+module Top(clk, rst, pbl, pbr, leds_out, switches_in);
 
 	// Inputs
 	input clk, rst, pbl, pbr;
@@ -13,8 +13,7 @@ module Top(clk, rst, pbl, pbr, leds_out);
 	output [6:0]leds_out;
 	
 	// Internal wires
-	wire slowen, rand, leds_on, push, sypush, tie, right, winrnd, 
-			clear;
+	wire slowen, rand, leds_on, push, sypush, tie, right, winrnd, clear;
 	wire [6:0]score;
 	wire [1:0]led_control;
 	
@@ -28,7 +27,8 @@ module Top(clk, rst, pbl, pbr, leds_out);
 	LFSR LFSR(.clk(clk), .rst(rst), .rand(rand));
 	
 	SCORER SCORER(.clk(clk), .rst(rst), .winrnd(winrnd), .right(right), 
-					.leds_on(leds_on), .score(score), .tie(tie));
+					.leds_on(leds_on), .score(score), .tie(tie)
+                    .switches_in(switches_in));
 					
 	OPP OPP(.clk(clk), .rst(rst), .sypush(sypush), .winrnd(winrnd));
 					
