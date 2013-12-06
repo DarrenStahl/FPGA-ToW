@@ -20,7 +20,7 @@ module song_reader(input clk, input rst, output sound);
     assign dur[3:0] = song_data[7:4];
     assign tone[3:0] = song_data[3:0];
 
-    blk_mem_sng sng(.clk(clk), .addra(song_addr), .douta(song_data));
+    blk_mem_sng sng(.clka(clk), .addra(song_addr), .douta(song_data));
 
     music_timer timer(.clk(clk), .rst(rst), .length(dur), .note_change(change_note));
 
