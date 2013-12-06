@@ -35,18 +35,23 @@ module music_timer(
     reg [28:0] count;
 
     always @ (posedge clk or posedge rst)
+        // Reset the local variables
         if (rst) begin
             note_change <= 0;
             count <= 0;
-				end
-		  else if (note_change == 1) note_change <= 0;
-         else begin
+        end
+        // Only allow note_change to be high for one clock cycle
+		else if (note_change == 1) note_change <= 0;
+        else begin
             case (length)
+                // None is basically reset
                 `VAL_NONE:
                 begin
                     count <= 0;
                     note_change <= 0;
                 end
+                // Count until the appropriate number of clock cycles
+                // then set note_change
                 `VAL_WHOLE:
                 begin
                     count <= count + 1;
