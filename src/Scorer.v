@@ -35,7 +35,7 @@ module scorer(clk, rst, right, winrnd, leds_on, switches_in, score);
 	reg [6:0] score;	
 	reg [3:0] state;	// One of WL, WR, L1, L2, L3, R1, R2, R3 or ERROR
 	reg [3:0] nxtstate;	// C/L
-	reg [6:0] switches;
+	reg [7:0] switches;
 
 	// SYNCHRONOUS STATE ASSIGNMENT ---------------------------------------------
 	always @(posedge clk or posedge rst)
