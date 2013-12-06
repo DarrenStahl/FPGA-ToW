@@ -80,7 +80,7 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
 				`ERROR: nxtstate = `ERROR;
     			default: begin
 					if (state < `WL && state > `WR)
-						nxtstate = state + mr ? 1 : -1;
+						nxtstate = state + (mr ? 1 : -1);
 					else nxtstate = `ERROR;
 				end
     			endcase
