@@ -4,20 +4,13 @@
 //Darren Stahl
 //100858939
 //*********************
-module Top(clk, rst, pbl, pbr, leds_out, sw, speaker,
+module Top(input clk, input rst, input pbl, input pbr, output [7:0] leds_out, input [7:0] sw, output speaker,
     output [2:0] vgaGreen,
     output [2:0] vgaRed,
     output [2:0] vgaBlue,
     output hSync,
     output vSync
     );
-	// Inputs
-	input clk, rst, pbl, pbr;
-   input [7:0] sw;
-
-	// Outputs
-	output [7:0]leds_out;
-	output speaker;
 	
 	// Internal wires
 	wire slowen, rand, leds_on, push, sypush, tie, right, winrnd, clear, sound;

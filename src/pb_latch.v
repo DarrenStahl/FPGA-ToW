@@ -13,7 +13,7 @@ module pb_latch(pbl, pbr, clear, rst,  push, tie, right);
   output push, tie, right;
   
   wire pbl, pbr, clear, rst, push, tie, right;
-  wire ls, rx, clr, left_out, right_out;
+  wire lx, rx, clr, left_out, right_out;
   
   assign lx = pbl & ~right_out;
   assign rx = pbr & ~left_out;

@@ -44,3 +44,17 @@ NET "pbl"      LOC = "H13";   # Bank = 1, Pin name = IP, Type = INPUT,          
 
 ## Speaker
 NET "speaker"	LOC = "L15";
+
+NET "vgaRed<0>"			LOC = "R9"
+NET "vgaRed<1>" 			LOC = "T8"
+NET "vgaRed<2>" 			LOC = "R8"
+
+NET "vgaGreen<0>" 		LOC = "N8"
+NET "vgaGreen<1>" 		LOC = "P8"
+NET "vgaGreen<2>" 		LOC = "P6"
+
+NET "vgaBlue<0>" 			LOC = "U5"
+NET "vgaBlue<1>" 			LOC = "U4"
+
+NET "Hsync" 				LOC = "T4"
+NET "Vsync" 				LOC = "U3"
