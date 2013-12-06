@@ -82,21 +82,20 @@ module tone_generator(
 	
 	reg [18:0] count; // Smallest space needed to hold 381679)
 	
-	initial begin
-		out <= 0;
-		count <= 0;
-	end
-	
 	always @ (posedge rst or posedge clk)
+        // Reset the local variables
 		if (rst) begin
 			count <= 0;
 			out <= 0;
 		end else
 			case (tone)
+                // No note is basically reset
 				`TONE_NONE: begin
 					count <= 0;
 					out <= 0;
 					end
+                // Count up for appropriate time
+                // then toggle out
 				`TONE_C3: begin
 						count <= count + 1;
 						if (count >= `TONE_C3) begin
