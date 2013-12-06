@@ -26,7 +26,7 @@ module Top(clk, rst, pbl, pbr, leds_out, switches_in);
 	
 	LFSR LFSR(.clk(clk), .rst(rst), .rand(rand));
 	
-	SCORER SCORER(.clk(clk), .rst(rst), .winrnd(winrnd), .right(right), 
+	Scorer Scorer(.clk(clk), .rst(rst), .winrnd(winrnd), .right(right), 
 					.leds_on(leds_on), .score(score), .tie(tie)
                     .switches_in(switches_in));
 					
