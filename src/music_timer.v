@@ -46,7 +46,7 @@ module music_timer(
                 `VAL_WHOLE:
                 begin
                     count <= count + 1;
-                    if (count >= VAL_WHOLE) begin
+                    if (count >= `VAL_WHOLE) begin
                         note_change <= 1;
                         count <= 0;
                     end
@@ -54,7 +54,7 @@ module music_timer(
                 `VAL_HALF:
                 begin
                     count <= count + 1;
-                    if (count >= VAL_HALF) begin
+                    if (count >= `VAL_HALF) begin
                         note_change <= 1;
                         count <= 0;
                     end
@@ -62,7 +62,7 @@ module music_timer(
                 `VAL_QUARTER:
                 begin
                     count <= count + 1;
-                    if (count >= VAL_QUARTER) begin
+                    if (count >= `VAL_QUARTER) begin
                         note_change <= 1;
                         count <= 0;
                     end
@@ -70,7 +70,7 @@ module music_timer(
                 `VAL_EIGHTH:
                 begin
                     count <= count + 1;
-                    if (count >= VAL_EIGHTH) begin
+                    if (count >= `VAL_EIGHTH) begin
                         note_change <= 1;
                         count <= 0;
                     end
@@ -78,7 +78,7 @@ module music_timer(
                 `VAL_DOTHALF:
                 begin
                     count <= count + 1;
-                    if (count >= VAL_DOTHALF) begin
+                    if (count >= `VAL_DOTHALF) begin
                         note_change <= 1;
                         count <= 0;
                     end
@@ -86,7 +86,7 @@ module music_timer(
                 `VAL_DOTQUARTER:
                 begin
                     count <= count + 1;
-                    if (count >= VAL_DOTQUARTER) begin
+                    if (count >= `VAL_DOTQUARTER) begin
                         note_change <= 1;
                         count <= 0;
                     end
@@ -94,7 +94,7 @@ module music_timer(
                 `VAL_DOTEIGHTH:
                 begin
                     count <= count + 1;
-                    if (count >= VAL_DOTEIGHTH) begin
+                    if (count >= `VAL_DOTEIGHTH) begin
                         note_change <= 1;
                         count <= 0;
                     end
