@@ -1,3 +1,14 @@
+/*
+	Authors: Darren Stahl, Hasith Vidanamadura, Robert Nelson
+    Date: December 6th 2013
+*/
+
+// =======================================================================================
+// SONG_READER
+//	- resets to address 0
+//	- Reads a song and outputs a PWM wave of the note frequencies
+//----------------------------------------------------------------------------------------
+
 module song_reader(input clk, input rst, output sound);
 
     reg [7:0] song_addr;

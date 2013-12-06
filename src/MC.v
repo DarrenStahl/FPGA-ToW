@@ -1,3 +1,14 @@
+/*
+	Authors: Darren Stahl, Hasith Vidanamadura, Robert Nelson
+    Date: December 6th 2013
+*/
+
+// =======================================================================================
+// Master Controller
+//	- Controlls the state of the game
+//	- resets to RESET state
+//	- outputs clear, led_control, leds_on
+//----------------------------------------------------------------------------------------
 `timescale 1ns / 1ns
 module MC(winrnd, slowen, rand, clk, rst, leds_on, clear, led_control);
     `define RESET   0
@@ -25,12 +36,14 @@ module MC(winrnd, slowen, rand, clk, rst, leds_on, clear, led_control);
     reg [2:0] state;
 
     always @ (posedge clk)
+        // Reset state
         if (rst) begin
             leds_on <= 0;
             clear <= 1;
             led_control <= `RESETLED;
             state <= `RESET;
         end else begin
+            // Move to next state
             case(state)
             `RESET: begin
                 state <= `WAITA;

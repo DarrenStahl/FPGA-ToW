@@ -1,9 +1,12 @@
-//*********************
-//Hasith Vidanamadura
-//100871538
-//Darren Stahl
-//100858939
-//*********************
+/*
+	Authors: Darren Stahl, Hasith Vidanamadura, Robert Nelson
+    Date: December 6th 2013
+*/
+
+// =======================================================================================
+// DIV_256ISH
+//	- Divides the clock by 25000000 (That's close to 256, right?)
+//----------------------------------------------------------------------------------------
 `timescale 1ms / 1ms
 module DIV256ISH(clk, rst, slowen);
 	input clk, rst;

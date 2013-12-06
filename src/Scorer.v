@@ -1,5 +1,6 @@
 /*
 	Authors: Darren Stahl, Hasith Vidanamadura, Robert Nelson
+    Date: December 6th 2013
 	First template by: Gord Allan - gallan@doe.carleton.ca
 */
 

@@ -1,9 +1,12 @@
-//*********************
-//Hasith Vidanamadura
-//100871538
-//Darren Stahl
-//100858939
-//*********************
+/*
+	Authors: Darren Stahl, Hasith Vidanamadura, Robert Nelson
+    Date: December 6th 2013
+*/
+
+// =======================================================================================
+// LED_MUX
+//	- Controls the leds_out based on score, and led_control
+//----------------------------------------------------------------------------------------
 module LED_MUX(led_control, score, leds_out);
 	//Input
 	input [1:0] led_control;

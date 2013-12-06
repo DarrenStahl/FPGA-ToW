@@ -1,9 +1,12 @@
-//*********************
-//Hasith Vidanamadura
-//100871538
-//Darren Stahl
-//100858939
-//*********************
+/*
+	Authors: Darren Stahl, Hasith Vidanamadura, Robert Nelson
+    Date: December 6th 2013
+*/
+
+// =======================================================================================
+// LFSR
+//	- Outputs rand after a "random" length of time
+//----------------------------------------------------------------------------------------
 `timescale 1ms / 1ms
 module LFSR(clk, rst, rand);
 	input clk, rst;

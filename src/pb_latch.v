@@ -1,23 +1,13 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    08:32:30 11/11/2013 
-// Design Name: 
-// Module Name:    pb_latch 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+/*
+	Authors: Darren Stahl, Hasith Vidanamadura, Robert Nelson
+    Date: December 6th 2013
+*/
+
+// =======================================================================================
+// PB_LATCH
+//	- Latches on the first input to go high, tie if both, resets to low
+//----------------------------------------------------------------------------------------
 module pb_latch(pbl, pbr, clear, rst,  push, tie, right);
   input pbl, pbr, clear, rst;
   output push, tie, right;

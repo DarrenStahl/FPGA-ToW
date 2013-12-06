@@ -1,3 +1,12 @@
+/*
+	Authors: Darren Stahl, Hasith Vidanamadura, Robert Nelson
+    Date: December 6th 2013
+*/
+
+// =======================================================================================
+// Music Timer
+//	- Times the length of notes, and outputs note_changed
+//----------------------------------------------------------------------------------------
 module music_timer(
     input clk,
     input rst,
