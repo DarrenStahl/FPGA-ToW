@@ -87,7 +87,7 @@ module tone_generator(
 		count <= 0;
 	end
 	
-	always @ (rst or posedge clk)
+	always @ (posedge rst or posedge clk)
 		if (rst) begin
 			count <= 0;
 			out <= 0;

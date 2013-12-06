@@ -20,7 +20,8 @@ NET "leds_out<3>"      LOC = "K14";   # Bank = 1, Pin name = IO_L12N_1/A7/RHCLK3
 NET "leds_out<4>"      LOC = "E17";   # Bank = 1, Pin name = IO, Type = I/O,                               Sch name = LD4? s3e500 only
 NET "leds_out<5>"      LOC = "P15";   # Bank = 1, Pin name = IO, Type = I/O,                               Sch name = LD5? s3e500 only
 NET "leds_out<6>"      LOC = "F4";    # Bank = 3, Pin name = IO, Type = I/O,                               Sch name = LD6? s3e500 only
-NET "leds_out<7>"      LOC = "R4";    # Bank = 3, Pin name = IO/VREF_3, Type = VREF,                       Sch name = LD7? s3e500 only
+#NET "leds_out<7>"      LOC = "R4";
+NET "led_dbg"      LOC = "R4";    # Bank = 3, Pin name = IO/VREF_3, Type = VREF,                       Sch name = LD7? s3e500 only
 #NET "leds_out<4>"      LOC = "E16";   # Bank = 1, Pin name = N.C., Type = N.C.,                            Sch name = LD4? other than s3e500
 #NET "leds_out<5>"      LOC = "P16";   # Bank = 1, Pin name = N.C., Type = N.C.,                            Sch name = LD5? other than s3e500
 #NET "leds_out<6>"      LOC = "E4";    # Bank = 3, Pin name = N.C., Type = N.C.,                            Sch name = LD6? other than s3e500

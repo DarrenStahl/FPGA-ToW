@@ -11,16 +11,18 @@ module Top(clk, rst, pbl, pbr, leds_out, sw, led_dbg);
    input [7:0] sw;
 
 	// Outputs
-	output [7:0]leds_out;
+	output [6:0]leds_out;
 	output led_dbg;
 	
 	// Internal wires
 	wire slowen, rand, leds_on, push, sypush, tie, right, winrnd, clear, sound;
 	wire [7:0]score;
 	wire [1:0]led_control;
+	
+	always @ (posedge clk or posedge rst) tone[3:0] <= 1;
 
 	//Instantiate an instance of each module, and connect them.
-    song_reader sr(.rst(rst), .clk(clk), .sound(sound));
+   song_reader sr(.rst(rst), .clk(clk), .sound(led_dbg));
 
 	pb_latch PBL(.rst(rst), .pbl(pbl), .pbr(pbr), .clear(clear),
 					.push(push), .tie(tie), .right(right));
