@@ -54,6 +54,10 @@ module scorer(clk, rst, right, winrnd, leds_on, switches_in, score);
 	assign dbl = (mr & switches[state-1] & (score >= 5)) | (!mr & switches[state-2] & (score <= 5));
 	
 	always @(state or switches)
+        if (state == `N)
+            switches[0:7] = switches_in[0:6];
+        else
+            switches[0:7] = switches[0:7];
 	
 	always @(state or mr or leds_on or winrnd) begin
 		nxtstate = state;
