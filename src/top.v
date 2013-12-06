@@ -29,7 +29,7 @@ module Top(clk, rst, pbl, pbr, leds_out, switches_in);
 
 	scorer Scorer(.clk(clk), .rst(rst), .winrnd(winrnd), .right(right),
 					.leds_on(leds_on), .score(score),
-                    .switches_in(switches_in));
+                    .switches_in(switches_in), .tie(tie));
 
 	OPP OPP(.clk(clk), .rst(rst), .sypush(sypush), .winrnd(winrnd));
 
