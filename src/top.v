@@ -4,15 +4,15 @@
 //Darren Stahl
 //100858939
 //*********************
-module Top(clk, rst, pbl, pbr, leds_out, sw, led_dbg);
+module Top(clk, rst, pbl, pbr, leds_out, sw, speaker);
 
 	// Inputs
 	input clk, rst, pbl, pbr;
    input [7:0] sw;
 
 	// Outputs
-	output [6:0]leds_out;
-	output led_dbg;
+	output [7:0]leds_out;
+	output speaker;
 	
 	// Internal wires
 	wire slowen, rand, leds_on, push, sypush, tie, right, winrnd, clear, sound;
@@ -20,7 +20,7 @@ module Top(clk, rst, pbl, pbr, leds_out, sw, led_dbg);
 	wire [1:0]led_control;
 
 	//Instantiate an instance of each module, and connect them.
-    song_reader sr(.rst(rst), .clk(clk), .sound(led_dbg));
+	song_reader sr(.rst(rst), .clk(clk), .sound(speaker));
 
 	pb_latch PBL(.rst(rst), .pbl(pbl), .pbr(pbr), .clear(clear),
 					.push(push), .tie(tie), .right(right));

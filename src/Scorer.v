@@ -22,7 +22,7 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
 	`define L2  	7
 	`define L3		8
 	`define WL  	9
-	`define ERROR   0
+	`define SCORER_ERROR   0
 
 	input clk;		// input clk 
 	input rst;		// asynchronous reset
@@ -55,9 +55,9 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
 	
 	always @(state or switches_in)
         if (state == `N)
-            switches[7:0] = switches_in[7:0];
+            switches[7:0] <= switches_in[7:0];
         else
-            switches[7:0] = switches[7:0];
+            switches[7:0] <= switches[7:0];
 	
 	always @(state or mr or leds_on or winrnd or dbl or tie) begin
 		nxtstate = state;
@@ -66,22 +66,22 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
     			case(state)
     			`WL:	nxtstate = `WL;
     			`WR:	nxtstate = `WR;
-				`ERROR: nxtstate = `ERROR;
+				`SCORER_ERROR: nxtstate = `SCORER_ERROR;
     			default: begin
 					if (state < `WL && state > `WR)
 						nxtstate = state - (mr ? (1 + dbl) : - (1 + dbl));
-					else nxtstate = `ERROR;
+					else nxtstate = `SCORER_ERROR;
 				end
     			endcase
     		else	            // the leds were off, player jumped the light
     			case(state)
     			`WL:	nxtstate = `WL;
     			`WR:	nxtstate = `WR;
-				`ERROR: nxtstate = `ERROR;
+				`SCORER_ERROR: nxtstate = `SCORER_ERROR;
     			default: begin
 					if (state < `WL && state > `WR)
 						nxtstate = state - (mr ? 1 : -1);
-					else nxtstate = `ERROR;
+					else nxtstate = `SCORER_ERROR;
 				end
     			endcase
         end
