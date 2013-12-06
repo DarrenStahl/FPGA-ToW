@@ -53,13 +53,13 @@ module scorer(clk, rst, right, winrnd, leds_on, switches_in, score);
 	assign mr = (right & leds_on) | (~right & ~leds_on);
 	assign dbl = (mr & switches[state-1] & (score >= 5)) | (!mr & switches[state-2] & (score <= 5));
 	
-	always @(state or switches)
+	always @(state or switches_in)
         if (state == `N)
             switches[7:0] = switches_in[7:0];
         else
             switches[7:0] = switches[7:0];
 	
-	always @(state or mr or leds_on or winrnd) begin
+	always @(state or mr or leds_on or winrnd or dbl) begin
 		nxtstate = state;
         if(winrnd) begin
     		if(leds_on)         // Proper pushes (uses favour the loser options)
