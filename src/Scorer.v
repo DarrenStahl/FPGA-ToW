@@ -4,12 +4,12 @@
 */
 
 // =======================================================================================
-// SCORER 
+// SCORER
 //	- resets to Neutral
 //	- advances on winrnd
-//	- determines who won the point based on leds_on and right control signals
-//	- outputs the score as a 7 bit word (L3 L2 L1 N R1 R2 R3)
-//      - a win shows up as either (1 1 1 0 0 0 0) if WL or (0 0 0 0 1 1 1) if WR
+//	- determines who won the point based on leds_on, switches, tie, and right control signals
+//	- outputs the score as an 8 bit word (L3 L2 L1 N*2 R1 R2 R3)
+//      - a win shows up as either (1 1 1 0 0 0 0 0) if WL or (0 0 0 0 0 1 1 1) if WR
 //----------------------------------------------------------------------------------------
 
 module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
@@ -51,7 +51,7 @@ module scorer(clk, rst, tie, right, winrnd, leds_on, switches_in, score);
 	wire dbl;
 	// move right if right pushed properly, or if left pushed improperly
 	assign mr = (right & leds_on) | (~right & ~leds_on);
-	assign dbl = (mr & switches[state-1] & (score >= 5)) | (!mr & switches[state-2] & (score <= 5));
+	assign dbl = (mr & switches[state-1] & (state >= 5)) | (!mr & switches[state-2] & (state <= 5));
 	
 	always @(state or switches_in)
         if (state == `N)
